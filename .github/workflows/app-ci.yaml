@@ -1,0 +1,40 @@
+name: Build and Push to Artifact Registry
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  PROJECT_ID: nitin-project-gcp 
+  GAR_LOCATION: us-central1-docker.pkg.dev/nitin-project-gcp/python-app
+  REGION: us-central1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build and Push Container
+      run: |-
+        docker build -t "${{ env.GAR_LOCATION }}/student-api:latest" ./  
+   
+    - name: Google Auth
+      id: auth
+      uses: 'google-github-actions/auth@v0'
+      with:
+        credentials_json: '${{ secrets.GCLOUD_SERVICE_KEY }}'
+        
+    - name: Configure-Docker
+      run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    - name: Push to Artifacts
+      run: docker push "${{ env.GAR_LOCATION }}/student-api:latest" 
+    
