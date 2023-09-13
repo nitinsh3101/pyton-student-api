@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-api
+  labels:
+    app: student-api
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: student-api
+  template:
+    metadata:
+      labels:
+        app: student-api
+    spec:
+      containers:
+      - name: student-api
+        image: us-central1-docker.pkg.dev/nitin-project-gcp/python-app/student-api:latest
+        ports:
+        - name: web
+          containerPort: 5050
+      restartPolicy: Always
