@@ -6,7 +6,8 @@ on:
 
 env:
   PROJECT_ID: nitin-project-gcp 
-  GAR_LOCATION: us-central1-docker.pkg.dev/nitin-project-gcp/python-app
+  GAR_LOCATION: us-central1-docker.pkg.dev/nitin-project-gcp/sims
+  IMAGE_NAME: student-api
   REGION: us-central1
 
 jobs:
@@ -24,7 +25,9 @@ jobs:
 
     - name: Build and Push Container
       run: |-
-        docker build -t "${{ env.GAR_LOCATION }}/student-api:latest" ./  
+        export TAG=$(git rev-parse --short ${{ github.sha }})
+        docker build -t "${{ env.GAR_LOCATION }}/${{ env.IMAGE_NAME}}:${TAG}-sha" ./
+        docker build -t "${{ env.GAR_LOCATION }}/${{ env.IMAGE_NAME}}:latest" ./
    
     - name: Google Auth
       id: auth
@@ -36,5 +39,7 @@ jobs:
       run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
     - name: Push to Artifacts
-      run: docker push "${{ env.GAR_LOCATION }}/student-api:latest" 
-    
+      run: |-
+        export TAG=$(git rev-parse --short ${{ github.sha }})
+        docker push "${{ env.GAR_LOCATION }}/${{env.IMAGE_NAME}}:${TAG}-sha"
+        docker push "${{ env.GAR_LOCATION }}/${{env.IMAGE_NAME}}:latest"

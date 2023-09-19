@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: student-api
-        image: us-central1-docker.pkg.dev/nitin-project-gcp/python-app/student-api:latest
+        image: us-central1-docker.pkg.dev/nitin-project-gcp/sims/student-api:latest
         ports:
         - name: web
           containerPort: 5050
