@@ -18,12 +18,12 @@ def to_serializable(val):
         }
         return strStudent
 
-@app.route("/", methods=['GET'])
-def getAllStudents():
-    studList=[]
-    for student in students:
-        studList.append(to_serializable(student))
-    return jsonify(studList)
+# @app.route("/", methods=['GET'])
+# def getAllStudents():
+#     studList=[]
+#     for student in students:
+#         studList.append(to_serializable(student))
+#     return jsonify(studList)
 
 @app.route("/students", methods=['GET'])
 def getAll():

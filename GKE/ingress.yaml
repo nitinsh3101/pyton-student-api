@@ -3,10 +3,29 @@ kind: Ingress
 metadata:
   name: ingress
 spec:
-   defaultBackend:
-     service:
-      name: student-api-service
-      port:
-        number: 5050
+  rules:
+  -  http:
+      paths:
+      - path: /students
+        pathType: Prefix
+        backend:
+          service:
+            name: student-api-service
+            port:
+              number: 5050
+      - path: /courses
+        pathType: Prefix
+        backend:
+          service:
+            name: course-api-service
+            port:
+              number: 3030
+
+
+  #  defaultBackend:
+  #    service:
+  #     name: student-api-service
+  #     port:
+  #       number: 5050
       
      
