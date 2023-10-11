@@ -6,14 +6,14 @@ spec:
   rules:
   -  http:
       paths:
-      - path: /students
+      - path: /api/v1/students
         pathType: Prefix
         backend:
           service:
             name: student-api-service
             port:
               number: 5050
-      - path: /courses
+      - path: /api/v1/courses
         pathType: Prefix
         backend:
           service:

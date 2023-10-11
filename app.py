@@ -29,7 +29,7 @@ def to_serializable(val):
 #         studList.append(to_serializable(student))
 #     return jsonify(studList)
 
-@app.route("/students", methods=['GET'])
+@app.route("/api/v1/students", methods=['GET'])
 
 def getAll():
     studList=[]
@@ -37,14 +37,14 @@ def getAll():
         studList.append(to_serializable(student))
     return jsonify(studList)
 
-@app.route("/students/<int:sid>", methods=['GET'])
+@app.route("/api/v1/students/<int:sid>", methods=['GET'])
 def get(sid):
     for student in students:
         if student.sid==sid:
             return jsonify(to_serializable(student))
     return 'student not found'
  
-@app.route("/students", methods=['POST'])
+@app.route("/api/v1/students", methods=['POST'])
 def add():
     tempStud=Student(int(request.form['sid']), request.form['name'])
     if any(stud.sid == int(request.form['sid']) for stud in students):
@@ -58,7 +58,7 @@ def add():
     return jsonify(studList)
 
 
-@app.route("/students/<int:sid>/", methods=['PUT'])
+@app.route("api/v1/students/<int:sid>/", methods=['PUT'])
 def update(sid):
     tempStud=None
     for student in students:
@@ -76,7 +76,7 @@ def update(sid):
         studList.append(to_serializable(student))
     return jsonify(studList)
 
-@app.route("/students/<int:sid>/", methods=['DELETE'])
+@app.route("/api/v1/students/<int:sid>/", methods=['DELETE'])
 def remove(sid):
     print(sid)
     tempStud=None
