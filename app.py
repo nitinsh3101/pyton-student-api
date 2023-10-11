@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from student import Student
 from flask_cors import cross_origin
+from flask_cors import CORS
 
 app = Flask(__name__)
  
