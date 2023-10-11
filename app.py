@@ -58,7 +58,7 @@ def add():
     return jsonify(studList)
 
 
-@app.route("api/v1/students/<int:sid>/", methods=['PUT'])
+@app.route("/api/v1/students/<int:sid>/", methods=['PUT'])
 def update(sid):
     tempStud=None
     for student in students:

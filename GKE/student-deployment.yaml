@@ -23,10 +23,6 @@ spec:
           httpGet:
             path: /api/v1/students
             port: web
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+          initialDelaySeconds: 15 
+          periodSeconds: 20       
+          timeoutSeconds: 15
