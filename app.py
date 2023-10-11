@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request
 from student import Student
+from flask_cors import cross_origin
 
 app = Flask(__name__)
  
+CORS(app)
+
 students = [
     Student(1,"Suraj Soma"),
     Student(2,"Hemant Bhosale"),
@@ -26,6 +29,7 @@ def to_serializable(val):
 #     return jsonify(studList)
 
 @app.route("/students", methods=['GET'])
+
 def getAll():
     studList=[]
     for student in students:

@@ -22,7 +22,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /students
-            port: web 
+            port: web
         resources:
           requests:
             memory: "64Mi"
